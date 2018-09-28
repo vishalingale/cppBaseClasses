@@ -50,7 +50,6 @@ int main()
         usleep(1000000);
         t1.SendMessage(string("Msg ")+std::to_string(i));
         t2.SendMessage(string("Msg ")+std::to_string(i));
-        cout << "i : "<<i<<endl;
         i--;
     }
     cout<<"Main Stopping Threads"<<endl;
