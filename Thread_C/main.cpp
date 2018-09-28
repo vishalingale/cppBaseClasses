@@ -5,45 +5,56 @@
 using namespace std;
 class CloudUpload_C:public Thread_C
 {
-    private: 
-        void EventLoop();
+    public:
+        void EventLoop() override
+        {
+            while(IsExit())
+            {
+                cout << "Main wating "<<endl;
+                WaitForEvent();
+                cout << "Main Unblocked "<<endl;
+                string msg = GetMessage();
+                cout<< "Message received by Thread "<<msg<<endl;
+            }
+            cout << "Main Loop Exited"<<endl;
+        }
 };
 
 
 class CloudDownload_C:public Thread_C
 {
-    private: 
-        void EventLoop() override;
+    public:
+        void EventLoop() override
+        {
+            while(IsExit())
+            {
+                cout << "Main wating "<<endl;
+                WaitForEvent();
+                cout << "Main Unblocked "<<endl;
+                string msg = GetMessage();
+                cout<< "Message received by Thread "<<msg<<endl;
+            }
+        }
 };
 
-void CloudUpload_C::EventLoop()
-{
-    int i=10;
-    while(i)
-    {
-
-        cout<<"Inside Cloud Upload Event loop"<<endl;
-        i--;
-    }
-}
-
-void CloudDownload_C::EventLoop()
-{
-    int i=10;
-    while(i)
-    {
-
-        cout<<"Inside Cloud Download Event loop"<<endl;
-        i--;
-    }
-}
 
 int main()
 {
 
     CloudUpload_C t1;
     CloudDownload_C t2;
-
-    usleep(5000000);
+    t1.Start();
+    t2.Start();
+    int i = 10;
+    while(i){
+        usleep(1000000);
+        t1.SendMessage(string("Msg ")+std::to_string(i));
+        t2.SendMessage(string("Msg ")+std::to_string(i));
+        cout << "i : "<<i<<endl;
+        i--;
+    }
+    cout<<"Main Stopping Threads"<<endl;
+    t2.Stop();
+    t1.Stop();
     return 0;
 }
