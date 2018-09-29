@@ -5,8 +5,8 @@
 using namespace std;
 int main()
 {
-    MsgQueue_C mq1("/my_queue",10,RECEIVER);
-    int i = 40000;
+    MsgQueue_C mq1("/my_queue",1024,RECEIVER);
+    int i = 3;
     while(i){
         cout<<"[RECEIVER] : Receiver blocked on message"<<endl;
         mq1.BlockForMessage();

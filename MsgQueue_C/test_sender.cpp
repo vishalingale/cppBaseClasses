@@ -5,17 +5,18 @@
 using namespace std;
 int main()
 {
-    MsgQueue_C mq1("/my_queue",10,SENDER);
-    int i = 10;
+    MsgQueue_C mq1("/my_queue",1024,SENDER);
+    int i = 3;
     while(i){
-        mq1.SendMessage(string("this is me"));
+        string msg = string("This is also this is me : ")+std::to_string(i);
+        mq1.SendMessage(msg);
         //cout<<"Receiver blocked on message"<<endl;
         //mq1.BlockForMessage();
-        cout << "[Server] : Msg Sending complete"<<endl;
+        cout << "[Server] : Msg Sending complete : "<<msg<<endl;
         usleep(1000000);
         i--;
     }
-    cout<<"Receiver exiting"<<endl;
+    cout<<"Sender exiting"<<endl;
     return 0;
 
 }
