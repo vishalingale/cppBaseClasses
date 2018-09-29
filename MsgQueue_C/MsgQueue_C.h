@@ -11,6 +11,8 @@
 #ifndef _MSG_QUEUE_C_HEADER_
 #define _MSG_QUEUE_C_HEADER_
 
+
+#define MAX_MSG_SIZE 1024
 typedef enum TYPE_C
 {
     RECEIVER,
@@ -22,14 +24,14 @@ class MsgQueue_C
     public:
         //< Constructor
         MsgQueue_C(){};
-        MsgQueue_C(string name, int max_size, Type_C type);
+        MsgQueue_C(string name,  Type_C type);
 
         //< Destructor
         ~MsgQueue_C();
 
         void GetIncomingMessage();
-        void BlockForMessage();
-        void SendMessage(string str);
+        bool BlockForMessage(string &str);
+        bool SendMessage(string str);
 
 
     private:

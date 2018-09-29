@@ -5,12 +5,14 @@
 using namespace std;
 int main()
 {
-    MsgQueue_C mq1("/my_queue",1024,RECEIVER);
-    int i = 3;
+    MsgQueue_C mq1("/my_queue",RECEIVER);
+    int i = 50;
     while(i){
         cout<<"[RECEIVER] : Receiver blocked on message"<<endl;
-        mq1.BlockForMessage();
-        cout << "[RECEIVER] : Msg recived complete"<<endl;
+        string str;
+        mq1.BlockForMessage(str);
+        usleep(1000000);
+        cout << "[RECEIVER] : Msg recived complete   :  "<<str << endl;
         i--;
     }
     cout<<"Receiver exiting"<<endl;
